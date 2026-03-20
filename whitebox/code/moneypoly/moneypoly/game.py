@@ -1,3 +1,4 @@
+"""Core Game logic for MoneyPoly."""
 import os
 
 from moneypoly.config import (

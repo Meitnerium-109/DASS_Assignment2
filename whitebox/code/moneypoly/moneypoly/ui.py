@@ -1,3 +1,4 @@
+"""User interface functions for text-based rendering."""
 def print_banner(title):
     """Print a decorated section header."""
     width = 52

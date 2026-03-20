@@ -1,3 +1,4 @@
+"""Dice logic for dice rolling and tracking streaks."""
 import random
 from moneypoly.config import BOARD_SIZE
 

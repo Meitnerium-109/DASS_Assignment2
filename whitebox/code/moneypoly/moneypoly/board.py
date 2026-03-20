@@ -1,3 +1,4 @@
+"""Board layout and properties definition."""
 from moneypoly.property import Property, PropertyGroup
 from moneypoly.config import (
     JAIL_POSITION,
