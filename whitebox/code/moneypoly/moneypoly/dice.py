@@ -1,6 +1,5 @@
 """Dice logic for dice rolling and tracking streaks."""
 import random
-from moneypoly.config import BOARD_SIZE
 
 class Dice:
     """Simulates a pair of six-sided dice with consecutive-doubles tracking."""
