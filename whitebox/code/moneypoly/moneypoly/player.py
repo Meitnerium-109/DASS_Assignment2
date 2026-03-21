@@ -5,6 +5,7 @@ from moneypoly.config import STARTING_BALANCE, BOARD_SIZE, GO_SALARY, JAIL_POSIT
 class Player:
     """Represents a single player in a MoneyPoly game."""
 
+    # pylint: disable=too-many-instance-attributes
     def __init__(self, name, balance=STARTING_BALANCE):
         self.name = name
         self.balance = balance
@@ -15,6 +16,7 @@ class Player:
 
     @property
     def in_jail(self):
+        """Getter for in_jail."""
         return self._jail["in_jail"]
 
     @in_jail.setter
@@ -23,6 +25,7 @@ class Player:
 
     @property
     def jail_turns(self):
+        """Getter for jail_turns."""
         return self._jail["turns"]
 
     @jail_turns.setter
@@ -31,6 +34,7 @@ class Player:
 
     @property
     def get_out_of_jail_cards(self):
+        """Getter for get_out_of_jail_cards."""
         return self._jail["free_cards"]
 
     @get_out_of_jail_cards.setter

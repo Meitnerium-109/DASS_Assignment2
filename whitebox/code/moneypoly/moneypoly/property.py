@@ -16,30 +16,34 @@ class Property:
             "houses": 0
         }
 
+        # Register with the group immediately on creation
+        self.group = group
+        if group is not None and self not in group.properties:
+            group.properties.append(self)
+
     @property
     def price(self):
+        """Getter for price."""
         return self._financials["price"]
 
     @property
     def base_rent(self):
+        """Getter for base_rent."""
         return self._financials["base_rent"]
 
     @property
     def mortgage_value(self):
+        """Getter for mortgage_value."""
         return self._financials["mortgage_value"]
 
     @property
     def houses(self):
+        """Getter for houses."""
         return self._financials["houses"]
 
     @houses.setter
     def houses(self, value):
         self._financials["houses"] = value
-
-        # Register with the group immediately on creation
-        self.group = group
-        if group is not None and self not in group.properties:
-            group.properties.append(self)
 
     def get_rent(self):
         """
@@ -70,10 +74,9 @@ class Property:
         """
         if not self.is_mortgaged:
             return 0
-        else:
-            cost = int(self.mortgage_value * 1.1)
-            self.is_mortgaged = False
-            return cost
+        cost = int(self.mortgage_value * 1.1)
+        self.is_mortgaged = False
+        return cost
 
     def is_available(self):
         """Return True if this property can be purchased (unowned, not mortgaged)."""

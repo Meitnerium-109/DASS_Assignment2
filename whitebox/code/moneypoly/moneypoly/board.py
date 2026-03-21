@@ -50,33 +50,35 @@ class Board:
             "dark_blue":  PropertyGroup("Dark Blue",  "dark_blue"),
         }
 
+    # pylint: disable=line-too-long
     def _create_properties(self):
         """Instantiate every purchasable property and return as a list."""
         g = self.groups
         return [
-            Property({"name": "Mediterranean Avenue",   "position": 1,  "price": 60,  "base_rent": 2},  group=g["brown"]),
-            Property({"name": "Baltic Avenue",          "position": 3,  "price": 60,  "base_rent": 4},  group=g["brown"]),
-            Property({"name": "Oriental Avenue",        "position": 6,  "price": 100, "base_rent": 6},  group=g["light_blue"]),
-            Property({"name": "Vermont Avenue",         "position": 8,  "price": 100, "base_rent": 6},  group=g["light_blue"]),
-            Property({"name": "Connecticut Avenue",     "position": 9,  "price": 120, "base_rent": 8},  group=g["light_blue"]),
-            Property({"name": "St. Charles Place",      "position": 11, "price": 140, "base_rent": 10}, group=g["pink"]),
-            Property({"name": "States Avenue",          "position": 13, "price": 140, "base_rent": 10}, group=g["pink"]),
-            Property({"name": "Virginia Avenue",        "position": 14, "price": 160, "base_rent": 12}, group=g["pink"]),
-            Property({"name": "St. James Place",        "position": 16, "price": 180, "base_rent": 14}, group=g["orange"]),
-            Property({"name": "Tennessee Avenue",       "position": 18, "price": 180, "base_rent": 14}, group=g["orange"]),
-            Property({"name": "New York Avenue",        "position": 19, "price": 200, "base_rent": 16}, group=g["orange"]),
-            Property({"name": "Kentucky Avenue",        "position": 21, "price": 220, "base_rent": 18}, group=g["red"]),
-            Property({"name": "Indiana Avenue",         "position": 23, "price": 220, "base_rent": 18}, group=g["red"]),
-            Property({"name": "Illinois Avenue",        "position": 24, "price": 240, "base_rent": 20}, group=g["red"]),
-            Property({"name": "Atlantic Avenue",        "position": 26, "price": 260, "base_rent": 22}, group=g["yellow"]),
-            Property({"name": "Ventnor Avenue",         "position": 27, "price": 260, "base_rent": 22}, group=g["yellow"]),
-            Property({"name": "Marvin Gardens",         "position": 29, "price": 280, "base_rent": 24}, group=g["yellow"]),
-            Property({"name": "Pacific Avenue",         "position": 31, "price": 300, "base_rent": 26}, group=g["green"]),
-            Property({"name": "North Carolina Avenue",  "position": 32, "price": 300, "base_rent": 26}, group=g["green"]),
-            Property({"name": "Pennsylvania Avenue",    "position": 34, "price": 320, "base_rent": 28}, group=g["green"]),
-            Property({"name": "Park Place",             "position": 37, "price": 350, "base_rent": 35}, group=g["dark_blue"]),
-            Property({"name": "Boardwalk",              "position": 39, "price": 400, "base_rent": 50}, group=g["dark_blue"]),
+            Property({"name": "Mediterranean Avenue",  "position": 1,  "price": 60,  "base_rent": 2}, group=g["brown"]),
+            Property({"name": "Baltic Avenue",         "position": 3,  "price": 60,  "base_rent": 4}, group=g["brown"]),
+            Property({"name": "Oriental Avenue",       "position": 6,  "price": 100, "base_rent": 6}, group=g["light_blue"]),
+            Property({"name": "Vermont Avenue",        "position": 8,  "price": 100, "base_rent": 6}, group=g["light_blue"]),
+            Property({"name": "Connecticut Avenue",    "position": 9,  "price": 120, "base_rent": 8}, group=g["light_blue"]),
+            Property({"name": "St. Charles Place",     "position": 11, "price": 140, "base_rent": 10}, group=g["pink"]),
+            Property({"name": "States Avenue",         "position": 13, "price": 140, "base_rent": 10}, group=g["pink"]),
+            Property({"name": "Virginia Avenue",       "position": 14, "price": 160, "base_rent": 12}, group=g["pink"]),
+            Property({"name": "St. James Place",       "position": 16, "price": 180, "base_rent": 14}, group=g["orange"]),
+            Property({"name": "Tennessee Avenue",      "position": 18, "price": 180, "base_rent": 14}, group=g["orange"]),
+            Property({"name": "New York Avenue",       "position": 19, "price": 200, "base_rent": 16}, group=g["orange"]),
+            Property({"name": "Kentucky Avenue",       "position": 21, "price": 220, "base_rent": 18}, group=g["red"]),
+            Property({"name": "Indiana Avenue",        "position": 23, "price": 220, "base_rent": 18}, group=g["red"]),
+            Property({"name": "Illinois Avenue",       "position": 24, "price": 240, "base_rent": 20}, group=g["red"]),
+            Property({"name": "Atlantic Avenue",       "position": 26, "price": 260, "base_rent": 22}, group=g["yellow"]),
+            Property({"name": "Ventnor Avenue",        "position": 27, "price": 260, "base_rent": 22}, group=g["yellow"]),
+            Property({"name": "Marvin Gardens",        "position": 29, "price": 280, "base_rent": 24}, group=g["yellow"]),
+            Property({"name": "Pacific Avenue",        "position": 31, "price": 300, "base_rent": 26}, group=g["green"]),
+            Property({"name": "North Carolina Avenue", "position": 32, "price": 300, "base_rent": 26}, group=g["green"]),
+            Property({"name": "Pennsylvania Avenue",   "position": 34, "price": 320, "base_rent": 28}, group=g["green"]),
+            Property({"name": "Park Place",            "position": 37, "price": 350, "base_rent": 35}, group=g["dark_blue"]),
+            Property({"name": "Boardwalk",             "position": 39, "price": 400, "base_rent": 50}, group=g["dark_blue"]),
         ]
+    # pylint: enable=line-too-long
 
     def get_property_at(self, position):
         """Return the Property at `position`, or None if there is none."""
@@ -106,7 +108,7 @@ class Board:
         prop = self.get_property_at(position)
         if prop is None:
             return False
-        if prop.is_mortgaged == True:
+        if prop.is_mortgaged is True:
             return False
         return prop.owner is None
 
