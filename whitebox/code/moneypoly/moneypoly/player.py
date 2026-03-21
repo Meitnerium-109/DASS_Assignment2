@@ -10,10 +10,32 @@ class Player:
         self.balance = balance
         self.position = 0
         self.properties = []
-        self.in_jail = False
-        self.jail_turns = 0
-        self.get_out_of_jail_cards = 0
+        self._jail = {"in_jail": False, "turns": 0, "free_cards": 0}
         self.is_eliminated = False
+
+    @property
+    def in_jail(self):
+        return self._jail["in_jail"]
+
+    @in_jail.setter
+    def in_jail(self, value):
+        self._jail["in_jail"] = value
+
+    @property
+    def jail_turns(self):
+        return self._jail["turns"]
+
+    @jail_turns.setter
+    def jail_turns(self, value):
+        self._jail["turns"] = value
+
+    @property
+    def get_out_of_jail_cards(self):
+        return self._jail["free_cards"]
+
+    @get_out_of_jail_cards.setter
+    def get_out_of_jail_cards(self, value):
+        self._jail["free_cards"] = value
 
 
     def add_money(self, amount):

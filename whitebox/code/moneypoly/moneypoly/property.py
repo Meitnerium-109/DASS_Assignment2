@@ -4,15 +4,37 @@ class Property:
 
     FULL_GROUP_MULTIPLIER = 2
 
-    def __init__(self, name, position, price, base_rent, group=None):
-        self.name = name
-        self.position = position
-        self.price = price
-        self.base_rent = base_rent
-        self.mortgage_value = price // 2
+    def __init__(self, details, group=None):
+        self.name = details.get("name")
+        self.position = details.get("position")
         self.owner = None
         self.is_mortgaged = False
-        self.houses = 0
+        self._financials = {
+            "price": details.get("price"),
+            "base_rent": details.get("base_rent"),
+            "mortgage_value": details.get("price") // 2,
+            "houses": 0
+        }
+
+    @property
+    def price(self):
+        return self._financials["price"]
+
+    @property
+    def base_rent(self):
+        return self._financials["base_rent"]
+
+    @property
+    def mortgage_value(self):
+        return self._financials["mortgage_value"]
+
+    @property
+    def houses(self):
+        return self._financials["houses"]
+
+    @houses.setter
+    def houses(self, value):
+        self._financials["houses"] = value
 
         # Register with the group immediately on creation
         self.group = group

@@ -24,11 +24,32 @@ class Game:
         self.bank = Bank()
         self.dice = Dice()
         self.players = [Player(name) for name in player_names]
-        self.current_index = 0
-        self.turn_number = 0
-        self.running = True
-        self.chance_deck = CardDeck(CHANCE_CARDS)
-        self.community_deck = CardDeck(COMMUNITY_CHEST_CARDS)
+        self._state = {"turn": 0, "running": True, "current_index": 0}
+        self.decks = {
+            "chance": CardDeck(CHANCE_CARDS),
+            "community": CardDeck(COMMUNITY_CHEST_CARDS)
+        }
+
+    @property
+    def current_index(self): return self._state["current_index"]
+    @current_index.setter
+    def current_index(self, value): self._state["current_index"] = value
+
+    @property
+    def turn_number(self): return self._state["turn"]
+    @turn_number.setter
+    def turn_number(self, value): self._state["turn"] = value
+
+    @property
+    def running(self): return self._state["running"]
+    @running.setter
+    def running(self, value): self._state["running"] = value
+
+    @property
+    def chance_deck(self): return self.decks["chance"]
+
+    @property
+    def community_deck(self): return self.decks["community"]
 
     def current_player(self):
         """Return the Player whose turn it currently is."""
@@ -77,42 +98,35 @@ class Game:
         tile = self.board.get_tile_type(position)
         print(f"  {player.name} moved to position {position}  [{tile}]")
 
-        if tile == "go_to_jail":
-            player.go_to_jail()
-            print(f"  {player.name} has been sent to Jail!")
-
-        elif tile == "income_tax":
-            player.deduct_money(INCOME_TAX_AMOUNT)
-            self.bank.collect(INCOME_TAX_AMOUNT)
-            print(f"  {player.name} paid income tax: ${INCOME_TAX_AMOUNT}.")
-
-        elif tile == "luxury_tax":
-            player.deduct_money(LUXURY_TAX_AMOUNT)
-            self.bank.collect(LUXURY_TAX_AMOUNT)
-            print(f"  {player.name} paid luxury tax: ${LUXURY_TAX_AMOUNT}.")
-
-        elif tile == "free_parking":
-            print(f"  {player.name} rests on Free Parking. Nothing happens.")
-
-        elif tile == "chance":
-            card = self.chance_deck.draw()
-            self._apply_card(player, card)
-
-        elif tile == "community_chest":
-            card = self.community_deck.draw()
-            self._apply_card(player, card)
-
-        elif tile == "railroad":
-            prop = self.board.get_property_at(position)
-            if prop is not None:
-                self._handle_property_tile(player, prop)
-
-        elif tile == "property":
-            prop = self.board.get_property_at(position)
-            if prop is not None:
-                self._handle_property_tile(player, prop)
+        handlers = {
+            "go_to_jail": self._handle_go_to_jail_tile,
+            "income_tax": lambda p, pos: self._handle_tax_tile(p, INCOME_TAX_AMOUNT, "income tax"),
+            "luxury_tax": lambda p, pos: self._handle_tax_tile(p, LUXURY_TAX_AMOUNT, "luxury tax"),
+            "free_parking": lambda p, pos: print(f"  {p.name} rests on Free Parking. Nothing happens."),
+            "chance": lambda p, pos: self._apply_card(p, self.chance_deck.draw()),
+            "community_chest": lambda p, pos: self._apply_card(p, self.community_deck.draw()),
+            "railroad": self._handle_property_wrapper,
+            "property": self._handle_property_wrapper,
+        }
+        handler = handlers.get(tile)
+        if handler:
+            handler(player, position)
 
         self._check_bankruptcy(player)
+
+    def _handle_go_to_jail_tile(self, player, position):
+        player.go_to_jail()
+        print(f"  {player.name} has been sent to Jail!")
+
+    def _handle_tax_tile(self, player, amount, tax_name):
+        player.deduct_money(amount)
+        self.bank.collect(amount)
+        print(f"  {player.name} paid {tax_name}: ${amount}.")
+
+    def _handle_property_wrapper(self, player, position):
+        prop = self.board.get_property_at(position)
+        if prop is not None:
+            self._handle_property_tile(player, prop)
 
 
     def _handle_property_tile(self, player, prop):
@@ -400,7 +414,7 @@ class Game:
 
             if choice == 0:
                 break
-            elif choice == 1:
+            if choice == 1:
                 ui.print_standings(self.players)
             elif choice == 2:
                 ui.print_board_ownership(self.board)
