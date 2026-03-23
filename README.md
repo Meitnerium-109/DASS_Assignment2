@@ -1,7 +1,7 @@
 # DASS Assignment 2
 
 ## GitHub Repository
-**Git Repository Link:** [INSERT YOUR REPO LINK HERE]
+**Git Repository Link:** [https://github.com/Meitnerium-109/DASS_Assignment2](https://github.com/Meitnerium-109/DASS_Assignment2)
 
 This directory contains the deliverables for Assignment 2, organized by the three testing strategies.
 
