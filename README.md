@@ -1,7 +1,8 @@
 # DASS Assignment 2
 
-## GitHub Repository
-**Git Repository Link:** [https://github.com/Meitnerium-109/DASS_Assignment2](https://github.com/Meitnerium-109/DASS_Assignment2)
+## Project Links
+* **GitHub Repository:** [https://github.com/Meitnerium-109/DASS_Assignment2](https://github.com/Meitnerium-109/DASS_Assignment2)
+* **OneDrive Submission:** [https://iiithydresearch-my.sharepoint.com/:u:/g/personal/pragati_prasad_research_iiit_ac_in/IQDDMMyXr45FTLotOTRka-VRAXr65r_qhcR8_EWDdR7HXtA?e=EsuXQs](https://iiithydresearch-my.sharepoint.com/:u:/g/personal/pragati_prasad_research_iiit_ac_in/IQDDMMyXr45FTLotOTRka-VRAXr65r_qhcR8_EWDdR7HXtA?e=EsuXQs)
 
 This directory contains the deliverables for Assignment 2, organized by the three testing strategies.
 
